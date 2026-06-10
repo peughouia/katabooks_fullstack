@@ -1,0 +1,31 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-backend:
+    name: Build & Test Backend
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./katabooks
+
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Configurer Java 21 (Temurin)
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Donner les droits d'exécution à Gradle
+        run: chmod +x ./gradlew
+
+      - name: Lancer les tests et compiler (Gradle)
+        run: ./gradlew build
