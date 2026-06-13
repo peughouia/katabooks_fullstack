@@ -3,6 +3,7 @@ package com.nickel.katabooks.customer;
 import com.nickel.katabooks.customer.dto.CustomerLoginRequestDto;
 import com.nickel.katabooks.customer.dto.CustomerLoginResponseDto;
 import com.nickel.katabooks.customer.dto.CustomerRegisterRequestDto;
+import com.nickel.katabooks.customer.dto.CustomerRegisterResponseDto;
 import org.springframework.http.HttpStatus;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -20,9 +21,15 @@ public class CustomerController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Void> register(@Valid @RequestBody CustomerRegisterRequestDto request){
-        customerService.register(request);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public ResponseEntity<CustomerRegisterResponseDto> register(@Valid @RequestBody CustomerRegisterRequestDto request){
+        Customer newcustomer = customerService.register(request);
+
+        CustomerRegisterResponseDto reponse = new CustomerRegisterResponseDto(
+                "Utilisateur créé avec succès",
+                newcustomer.getEmail(),
+                newcustomer.getName()
+        );
+        return ResponseEntity.status(HttpStatus.CREATED).body(reponse);
     }
 
     @PostMapping("/login")

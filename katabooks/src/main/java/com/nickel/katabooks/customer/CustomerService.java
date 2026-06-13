@@ -3,6 +3,7 @@ package com.nickel.katabooks.customer;
 import com.nickel.katabooks.customer.dto.CustomerLoginRequestDto;
 import com.nickel.katabooks.customer.dto.CustomerLoginResponseDto;
 import com.nickel.katabooks.customer.dto.CustomerRegisterRequestDto;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -11,9 +12,11 @@ import java.util.UUID;
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public CustomerService(CustomerRepository customerRepository) {
+    public CustomerService(CustomerRepository customerRepository, PasswordEncoder passwordEncoder) {
         this.customerRepository = customerRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public Customer register(CustomerRegisterRequestDto request){
@@ -45,7 +48,8 @@ public class CustomerService {
         Customer customer = new Customer();
         customer.setEmail(request.getEmail());
         customer.setName(request.getName());
-        customer.setPassword(request.getPassword());
+        String hashPassword = passwordEncoder.encode(request.getPassword());
+        customer.setPassword(hashPassword);
         customer.setRole(Customer.Role.CLIENT);
         return customer;
     }
@@ -56,7 +60,7 @@ public class CustomerService {
     }
 
     private void verifyPassword(String inputPassword, String basePassword) {
-        if (!inputPassword.equals(basePassword)) {
+        if (!passwordEncoder.matches(inputPassword,basePassword)) {
             throw new IllegalArgumentException("Email ou mot de passe incorrect");
         }
     }
