@@ -124,10 +124,10 @@ public class CartService {
 
     private void addNewLine(Cart cart, Book book, Integer quantity) {
         verifyStock(book, quantity);
-        CartItem nouvelleLigne = new CartItem();
-        nouvelleLigne.setCart(cart);
-        nouvelleLigne.setBook(book);
-        nouvelleLigne.setQuantity(quantity);
-        cartItemRepository.save(nouvelleLigne);
+        CartItem newLine = new CartItem();
+        newLine.setCart(cart);
+        newLine.setBook(book);
+        newLine.setQuantity(quantity);
+        cartItemRepository.save(newLine);
     }
 }
