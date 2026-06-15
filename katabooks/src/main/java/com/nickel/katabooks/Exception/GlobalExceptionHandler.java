@@ -7,6 +7,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,6 +37,26 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erreur);
     }
+
+    //
+    @ExceptionHandler(BookNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleBookNotFound(BookNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(buildError(ex.getMessage()));
+    }
+
+//    @ExceptionHandler(IllegalArgumentException.class)
+//    public ResponseEntity<Map<String, Object>> handleIllegalArgument(IllegalArgumentException ex) {
+//        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(construireErreur(ex.getMessage()));
+//    }
+
+    private Map<String, Object> buildError(String message) {
+        return Map.of(
+                "timestamp", LocalDateTime.now().toString(),
+                "message", message
+        );
+    }
+
+
 }
 
 
