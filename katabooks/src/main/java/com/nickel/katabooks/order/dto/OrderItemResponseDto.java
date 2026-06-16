@@ -1,16 +1,18 @@
-package com.nickel.katabooks.cart.dto;
+package com.nickel.katabooks.order.dto;
+
+
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class CartItemResponseDto {
-    private Long cartItemId;
+public class OrderItemResponseDto {
+    private Long orderItemId;
     private Long bookId;
     private String bookTitle;
     private String bookImageUrl;
-    private Double bookPrice;
+    private Double priceAtPurchase;
     private Integer quantity;
     private Double totalLinePrice;
 }

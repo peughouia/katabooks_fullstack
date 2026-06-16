@@ -1,4 +1,4 @@
-package com.nickel.katabooks.cart;
+package com.nickel.katabooks.order.entity;
 
 import com.nickel.katabooks.book.Book;
 import jakarta.persistence.*;
@@ -8,26 +8,28 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "cart_items")
+@Table(name = "order_items")
 @Getter
 @Setter
 @NoArgsConstructor
-public class CartItem {
+public class OrderItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "cart_id", nullable = false)
-    private Cart cart;
+    @JoinColumn(name = "order_id", nullable = false)
+    private Order order;
 
     @ManyToOne
     @JoinColumn(name = "book_id", nullable = false)
     private Book book;
 
+    @Column(nullable = false)
+    private Double priceAtPurchase;
+
     @Min(1)
     @Column(nullable = false)
     private Integer quantity;
-
 }
