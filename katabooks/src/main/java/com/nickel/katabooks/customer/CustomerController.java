@@ -32,6 +32,13 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.CREATED).body(reponse);
     }
 
+    @PostMapping("/register/gestionnaire")
+    public ResponseEntity<Void> registerGestionnaire(
+            @Valid @RequestBody CustomerRegisterRequestDto request) {
+        customerService.registerGestionnaire(request);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
     @PostMapping("/login")
     public ResponseEntity<CustomerLoginResponseDto> login(@Valid @RequestBody CustomerLoginRequestDto request) {
         CustomerLoginResponseDto response = customerService.login(request);
