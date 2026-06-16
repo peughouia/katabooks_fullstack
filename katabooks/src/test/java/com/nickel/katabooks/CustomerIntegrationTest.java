@@ -1,6 +1,7 @@
 package com.nickel.katabooks;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nickel.katabooks.customer.Customer;
 import com.nickel.katabooks.customer.CustomerRepository;
 import com.nickel.katabooks.customer.dto.CustomerLoginRequestDto;
@@ -13,7 +14,7 @@ import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
-import tools.jackson.databind.ObjectMapper;
+
 
 import java.util.Optional;
 
@@ -29,11 +30,11 @@ public class CustomerIntegrationTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Autowired
     private CustomerRepository customerRepository;
+
 
     @BeforeEach
     void cleanDatabase() {
