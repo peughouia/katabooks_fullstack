@@ -38,9 +38,4 @@ public class CustomerController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/bonjour")
-    public String direBonjour() {
-        return "Bonjour, l'application Spring Boot fonctionne parfaitement !";
-    }
-
 }

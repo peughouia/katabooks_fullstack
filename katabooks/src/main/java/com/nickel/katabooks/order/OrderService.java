@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -111,6 +112,18 @@ public class OrderService {
         confirmCommande(order);
 
         return orderMapper.toOrderResponse(order);
+
+    }
+
+    public List<OrderResponseDto> getPurchaseHistory(Customer customer) {
+        // 1. On récupère toutes les commandes payées du client
+        List<Order> paidOrders = orderRepository
+                .findByCustomerAndStatusOrderByCreatedAtDesc(customer, OrderStatus.CONFIRMED);
+
+        // 2. On transforme chaque commande en DTO grâce au Mapper
+        return paidOrders.stream()
+                .map(orderMapper::toOrderResponse)
+                .toList();
     }
 
     //   Méthodes privées

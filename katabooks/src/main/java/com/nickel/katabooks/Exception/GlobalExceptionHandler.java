@@ -31,7 +31,6 @@ public class GlobalExceptionHandler {
         );
     }
 
-    // Erreurs métier (stock insuffisant, email déjà utilisé...)
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<Map<String, Object>> handleBusinessExceptions(
             IllegalArgumentException ex) {
@@ -41,7 +40,6 @@ public class GlobalExceptionHandler {
         );
     }
 
-    // Livre introuvable → 404
     @ExceptionHandler(BookNotFoundException.class)
     public ResponseEntity<Map<String, Object>> handleBookNotFound(
             BookNotFoundException ex) {
@@ -51,7 +49,6 @@ public class GlobalExceptionHandler {
         );
     }
 
-    // ─── Format unifié pour toutes les erreurs ────────────────────────────
     private Map<String, Object> construireErreur(HttpStatus status,
                                                  String message,
                                                  Map<String, String> details) {
@@ -60,7 +57,6 @@ public class GlobalExceptionHandler {
         body.put("status", status.value());
         body.put("message", message);
 
-        // On ajoute les détails uniquement s'il y en a (erreurs de validation)
         if (details != null && !details.isEmpty()) {
             body.put("details", details);
         }
