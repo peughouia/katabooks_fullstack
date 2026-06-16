@@ -129,5 +129,7 @@ public class CartService {
         newLine.setBook(book);
         newLine.setQuantity(quantity);
         cartItemRepository.save(newLine);
+
+        cart.getItems().add(newLine);
     }
 }
