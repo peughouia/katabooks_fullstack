@@ -4,6 +4,7 @@ import com.nickel.katabooks.Exception.BookNotFoundException;
 import com.nickel.katabooks.book.dto.BookCatalogResponseDto;
 import com.nickel.katabooks.book.dto.BookDetailResponseDto;
 import com.nickel.katabooks.book.dto.BookMapper;
+import com.nickel.katabooks.order.repository.OrderItemRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -14,10 +15,12 @@ public class BookService {
 
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
+    private final OrderItemRepository orderItemRepository;
 
-    public BookService(BookRepository bookRepository, BookMapper bookMapper){
+    public BookService(BookRepository bookRepository, BookMapper bookMapper, OrderItemRepository orderItemRepository){
         this.bookRepository = bookRepository;
         this.bookMapper = bookMapper;
+        this.orderItemRepository = orderItemRepository;
     }
 
     public Page<BookCatalogResponseDto> getCatalog(int pageNumber){

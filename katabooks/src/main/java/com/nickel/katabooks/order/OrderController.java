@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/orders")
 public class OrderController {
@@ -57,5 +59,14 @@ public class OrderController {
             @Valid @RequestBody CheckoutRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(orderService.checkout(customer, request));
+    }
+
+    // Historique
+    @GetMapping("/history")
+    public ResponseEntity<List<OrderResponseDto>> getPurchaseHistory(
+            @RequestAttribute("authenticatedCustomer") Customer customer) {
+
+        List<OrderResponseDto> history = orderService.getPurchaseHistory(customer);
+        return ResponseEntity.ok(history);
     }
 }
