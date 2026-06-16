@@ -16,5 +16,5 @@ public interface OrderItemRepository extends JpaRepository<OrderItem, Long> {
 
     Optional<OrderItem> findByOrderAndBook(Order order, Book book);
 
-    List<OrderItem> findByOrderStatus(OrderStatus status);
+    List<OrderItem> findByBookAndOrderStatus(Book book, OrderStatus status);
 }

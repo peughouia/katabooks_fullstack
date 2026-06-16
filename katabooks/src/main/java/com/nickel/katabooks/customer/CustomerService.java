@@ -27,6 +27,15 @@ public class CustomerService {
 
     }
 
+    public Customer registerGestionnaire(CustomerRegisterRequestDto request) {
+        AvailableEmailVerify(request.getEmail());
+
+        Customer customer = createCustomer(request);
+        customer.setRole(Customer.Role.GESTIONNAIRE);
+
+        return customerRepository.save(customer);
+    }
+
     public CustomerLoginResponseDto login(CustomerLoginRequestDto request){
         Customer customer = foundCustomerViaEmail(request.getEmail());
 

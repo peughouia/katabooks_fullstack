@@ -27,17 +27,21 @@ public class GlobalExceptionHandler {
         });
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                construireErreur(HttpStatus.BAD_REQUEST, "Erreur de validation", erreursParChamp)
+                buildError(HttpStatus.BAD_REQUEST, "Erreur de validation", erreursParChamp)
         );
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<Map<String, Object>> handleBusinessExceptions(
+    public ResponseEntity<Map<String, Object>> handleIllegalArgument(
             IllegalArgumentException ex) {
 
+        if (ex.getMessage().startsWith("Accès refusé")) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(
+                    buildError(HttpStatus.FORBIDDEN, ex.getMessage(), null));
+        }
+
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                construireErreur(HttpStatus.BAD_REQUEST, ex.getMessage(), null)
-        );
+                buildError(HttpStatus.BAD_REQUEST, ex.getMessage(), null));
     }
 
     @ExceptionHandler(BookNotFoundException.class)
@@ -45,11 +49,11 @@ public class GlobalExceptionHandler {
             BookNotFoundException ex) {
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                construireErreur(HttpStatus.NOT_FOUND, ex.getMessage(), null)
+                buildError(HttpStatus.NOT_FOUND, ex.getMessage(), null)
         );
     }
 
-    private Map<String, Object> construireErreur(HttpStatus status,
+    private Map<String, Object> buildError(HttpStatus status,
                                                  String message,
                                                  Map<String, String> details) {
         Map<String, Object> body = new HashMap<>();
