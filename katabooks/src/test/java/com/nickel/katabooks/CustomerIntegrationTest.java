@@ -2,6 +2,7 @@ package com.nickel.katabooks;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nickel.katabooks.cart.CartRepository;
 import com.nickel.katabooks.customer.Customer;
 import com.nickel.katabooks.customer.CustomerRepository;
 import com.nickel.katabooks.customer.dto.CustomerLoginRequestDto;
@@ -35,8 +36,12 @@ public class CustomerIntegrationTest {
     @Autowired
     private CustomerRepository customerRepository;
 
+    @Autowired
+    private CartRepository cartRepository;
+
     @BeforeEach
     void cleanDatabase() {
+        cartRepository.deleteAll();
         customerRepository.deleteAll();
     }
 
