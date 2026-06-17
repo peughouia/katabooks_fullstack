@@ -15,6 +15,7 @@ public class AuthInterceptor implements HandlerInterceptor {
     private final CustomerRepository customerRepository;
 
     public AuthInterceptor(CustomerRepository customerRepository) {
+
         this.customerRepository = customerRepository;
     }
 

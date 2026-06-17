@@ -14,6 +14,7 @@ public class BookController {
     public BookController(BookService bookService) {
         this.bookService = bookService;
     }
+
     @GetMapping
     public ResponseEntity<Page<BookCatalogResponseDto>> getCatalog(
             @RequestParam(defaultValue = "0") int page){
