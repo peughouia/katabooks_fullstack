@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+@theme {
+  /* --- Tes couleurs personnalisées --- */
+  --color-background: #F8F7FF;
+  --color-foreground: #1A1A2E;
+  --color-card: #FFFFFF;
+  --color-border: #E5E3F5;
+  --color-muted: #F0EEFB;
+  --color-muted-foreground: #6B6885;
+  --color-primary: #6C3BFF;
+  --color-primary-foreground: #FFFFFF;
+  --color-brand: #FFD600;
+  --color-brand-foreground: #1A1A2E;
+  --color-accent: #6C3BFF;
+  --color-danger: #D8302E;
+  --color-success: #1D9E75;
+  --color-ring: #6C3BFF;
+
+  /* --- Tes arrondis personnalisés --- */
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+}
+
+/* 3. Ton style global appliqué au body */
+body {
+  @apply bg-background text-foreground;
+}
